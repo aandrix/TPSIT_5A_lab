@@ -3,16 +3,20 @@ from threading import Thread, Lock
 mutex = Lock()
 
 
-class senzori(Thread):
+class Senzori(Thread):
     def __init__(self, con):
         Thread.__init__(self)
         self.con = con
 
     def run(self):
-        mutex.acquire()
-        message = self.con.recv(4096)
-        #sensore 1;sensore 2 (sono boleani)
-        mutex.release()
+        while True:
+         mutex.acquire()
+
+         message = self.con.recv(4096)
+         #sensore 1;sensore 2 (sono boleani)
+         print(message.decode())
+         mutex.release()
+         
 
         
 
@@ -29,6 +33,8 @@ def main():
     soc = sck.socket(sck.AF_INET,sck.SOCK_STREAM)
     soc.connect(SERVER_ALPHABOT)
 
+    senzori = Senzori(soc)
+    senzori.start()
     while True:
         command = input("inserire il comando ")
         duration = input("inserire la dutata (sec) ")

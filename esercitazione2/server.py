@@ -1,14 +1,27 @@
 import socket as sck 
 import AlphaBot 
 import time
-from threading import Thread
-
+from threading import Thread, Lock
+mutex = Lock()
 class Task(Thread):
-    def __init__(self, id):
+    def __init__(self, robot, conn):
         Thread.__init__(self)
+        self.robot = robot
+        self.conn = conn
 
     def run(self):
-        pass
+
+       while True:
+            sensori = self.robot.getProssimitySensors()
+            print(sensori)
+            mutex.acquire()
+
+            if sensori[0] == 0 or sensori[1] == 0:
+             pass
+             self.conn.sendall(f"senzori = {sensori}".encode())
+            mutex.release()
+            time.sleep(1)
+
 
 SEPARATOR = ";"
 
@@ -16,10 +29,14 @@ SEPARATOR = ";"
 def main():
     robot = AlphaBot.AlphaBot()
     soc = sck.socket(sck.AF_INET,sck.SOCK_STREAM)
+    
     address = ("0.0.0.0", 5000)
     soc.bind(address)
     soc.listen()
     conn, client_address = soc.accept()
+    print(f"sciao{client_address}")
+    task = Task(robot, conn)
+    task.start()
     while True: 
         message = conn.recv(4096).decode()
         '''
@@ -36,19 +53,19 @@ def main():
         #durata in secondi 
         if(command.lower() == "b"):
             robot.backward()
-            time.sleep(duration)
+            time.sleep(duration/100)
             robot.stop()
         elif(command.lower() == "f"):
             robot.forward()
-            time.sleep(duration)  
+            time.sleep(duration/100)  
             robot.stop()
         elif(command.lower() == "l"):
             robot.left()
-            time.sleep(duration)
+            time.sleep(duration/100)
             robot.stop()
         elif(command.lower() == "r"):
             robot.right()
-            time.sleep(duration)
+            time.sleep(duration/100)
             robot.stop()
         elif(command.lower() == "e"):
             break 
