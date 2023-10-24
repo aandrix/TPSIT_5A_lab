@@ -13,13 +13,16 @@ def carryOutQuery(cmd, robot ):
     conn = sqlite3.connect("./tabella_movements.db")
     cur = conn.cursor()
     
-    ris = cur.execute(f"SELECT SecComandi FROM Movements WHERE Comando ={cmd}")
-    
-    comandi = ris.split(";")
+    ris = cur.execute(f"SELECT SeqComandi FROM Movements WHERE Comando ='{cmd}'")
+    ris1 = ris.fetchall()
+    stringa = ris1[0][0]
+    print(stringa)
+    comandi = stringa.split(";")
     for c in comandi:
         comando=  c.split(",")
         char = comando[0]
         intero = int(comando[1])
+        print(char, intero)
         commandtoRobot(char, robot, intero)
     pass
 
@@ -60,11 +63,11 @@ def main():
             continue
         
         command = splitted_msg[0]
-        duration =  int(splitted_msg[1])
+        duration =  splitted_msg[1]
 
         #durata in secondi 
         if(command.lower() in diz_query):
-            carryOutQuery(command.lower())
+            carryOutQuery(command.lower(), robot)
             pass
         elif(command.lower() == "e"):
             break 
