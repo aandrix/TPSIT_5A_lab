@@ -27,7 +27,7 @@ class Senzori(Thread):
 
 
 SEPARATOR = ";"
-SERVER_ALPHABOT = ("192.168.1.138", 5000)
+SERVER_ALPHABOT = ("192.168.1.121", 5000)
 
 def main():
     soc = sck.socket(sck.AF_INET,sck.SOCK_STREAM)
