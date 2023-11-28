@@ -1,22 +1,5 @@
-'''
 
-from flask import Flask
-
-app = Flask(__name__)
-
-@app.route('/',methods = ['GET', 'POST'])
-def front():
-    request.method.g
-
-    pass
-
-
-if __name__ == '__main__':
-    app.run(debug=True)
-
-
-'''
-
+import AlphaBot 
 from flask import Flask, render_template, request
 app = Flask(__name__)
 
@@ -39,4 +22,4 @@ def index():
     return render_template("index.html")
 
 if __name__ == '__main__':
-    app.run(debug=True, host='localhost')
+    app.run(debug=True, host='0.0.0.0')
