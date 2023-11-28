@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .remote {
+      display: grid;
+      grid-template-columns: repeat(3, 100px);
+      grid-template-rows: repeat(3, 100px);
+      gap: 10px;
+      background-color: #f0f0f0;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+      background-color: #ddd;
+      border: 1px solid #999;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .center-button {
+      grid-column: 2;
+      grid-row: 2;
+    }
+
+    .top-button {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    .bottom-button {
+      grid-column: 2;
+      grid-row: 3;
+    }
+
+    .left-button {
+      grid-column: 1;
+      grid-row: 2;
+    }
+
+    .right-button {
+      grid-column: 3;
+      grid-row: 2;
+    }
+  </style>
+  <title>Telecomando</title>
+</head>
+<body>
+  <form class="remote" method="post" action="http://localhost:5000">
+    <input type = "submit" value="avanti" name = "avanti" class="button top-button" >↑</input>
+    <input type = "submit" value ="sinistra" name = "sinistra"  class="button left-button">←</input>
+    <input type = "submit" value ="destra" name = "destra" class="button right-button">→</input>
+    <input type = "submit" value="indietro" name = "indietro" class="button bottom-button">↓</input>
+  </form>
+</body>
+</html>
