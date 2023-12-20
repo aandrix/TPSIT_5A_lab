@@ -6,13 +6,13 @@ app = Flask(__name__)
 @app.route("/", methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
-        if request.form.get('avanti') == 'avanti':
+        if request.form.get('avanti1') == 'avanti':
             print("avanti")
-        elif  request.form.get('indietro') == 'indietro':
+        elif  request.form.get('indietro1') == 'indietro':
             print("indietro")
-        elif  request.form.get('destra') == 'destra':
+        elif  request.form.get('destra1') == 'destra':
             print("destra")
-        elif  request.form.get('sinistra') == 'sinistra':
+        elif  request.form.get('sinistra1') == 'sinistra':
             print("sinistra")
         else:
             print("Unknown")
