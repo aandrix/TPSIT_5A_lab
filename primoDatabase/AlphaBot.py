@@ -15,8 +15,8 @@ class AlphaBot(object):
         self.IN4 = in4
         self.ENA = ena
         self.ENB = enb
-        self.PA  = 50
-        self.PB  = 50
+        self.PA  = 100
+        self.PB  = 100
 
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)

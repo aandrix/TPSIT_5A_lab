@@ -20,7 +20,7 @@ def validate(username, password):
         dbPass = row[1]
         if dbUser==username:
             completion=check_password(dbPass, password)
-    return completion, dbUser, dbPass
+    return completion, dbUser
 
 def check_password(hashed_password, user_password):
     return hashed_password == user_password
@@ -30,13 +30,14 @@ def login():
     error = None
     print("stanno entrando")
     if request.method == 'POST':
-        
+
         user = request.cookies.get('username')
         psw = request.cookies.get('password')
         completion, username = validate(user, psw)
 
         if completion == True:
-            if username == "zoe":
+            if username == "Zoassa":
+                print("tua mamma")
                 resp = make_response(render_template("utenteZoe.html"))
                 resp.set_cookie('username', 'zoe')
                 return resp
