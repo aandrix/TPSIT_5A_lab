@@ -7,7 +7,10 @@ from threading import Thread
 from re import U
 app = Flask(__name__)
 robot = AlphaBot.AlphaBot()
-codaC = []
+codaC = []#da implementare ma buona fortuna
+
+
+
 def validate(username, password):
     completion = False
     con = sqlite3.connect('./db.db')
@@ -15,12 +18,13 @@ def validate(username, password):
     cur = con.cursor()
     cur.execute("SELECT * FROM USERS")
     rows = cur.fetchall()
-    for row in rows:
+    for row in rows:#controllo tutte le ricghe del db 
         dbUser = row[0]
         dbPass = row[1]
         if dbUser==username:
             completion=check_password(dbPass, password)
-    return completion, dbUser
+    
+    return completion
 
 def check_password(hashed_password, user_password):
     return hashed_password == user_password
@@ -31,17 +35,22 @@ def login():
     print("stanno entrando")
     if request.method == 'POST':
 
+        username = request.form['username']
+        password = request.form['password']
+
         user = request.cookies.get('username')
         psw = request.cookies.get('password')
-        completion, username = validate(user, psw)
+        completion = validate(username, password)
+        print(f"completion: {validate(user, psw)}")
 
         if completion == True:
+            print("utente COrretto")
             if username == "Zoassa":
                 print("tua mamma")
                 resp = make_response(render_template("utenteZoe.html"))
                 resp.set_cookie('username', 'zoe')
                 return resp
-            elif username == "zoe":
+            elif user == "zoe":
                 resp = make_response(render_template("utenteAndrea.html"))
                 resp.set_cookie('username', 'andrea')
                 return resp
