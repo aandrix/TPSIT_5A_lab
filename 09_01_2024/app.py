@@ -5,6 +5,7 @@ import time
 import hashlib
 from threading import Thread
 from re import U
+
 app = Flask(__name__)
 robot = AlphaBot.AlphaBot()
 codaC = []#da implementare ma buona fortuna
@@ -23,6 +24,7 @@ def validate(username, password):
         dbPass = row[1]
         if dbUser==username:
             completion=check_password(dbPass, password)
+
     
     return completion
 
@@ -83,28 +85,34 @@ trd = Thread.__init__(target=coda)
 '''
 @app.route('/secret',methods=['GET', 'POST'])
 def secret():
+    comando =""
     print("ciao")
     if request.method == 'POST':
         if request.form.get('avanti1') == 'avanti':
             robot.forward()
             time.sleep(1)
             robot.stop()
+            comando = "avanti"
+
             #ikmportare il comando avanti
         elif  request.form.get('indietro1') == 'indietro':
             robot.backward()
             time.sleep(1)
             robot.stop()
+            comando = "indietro"
             print("indietro")
         elif  request.form.get('destra1') == 'destra':
             robot.right()
             time.sleep(0.5)
             robot.stop()
             print("destra")
+            comando = "destra"
         elif  request.form.get('sinistra1') == 'sinistra':
             robot.left()
             time.sleep(0.5)
             robot.stop()
             print("sinistra")
+            comando = "sinistra"
         else:
             print("Unknown")
     elif request.method == 'GET':
